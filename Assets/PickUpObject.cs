@@ -5,10 +5,10 @@ using UnityEngine;
 public class PickUpObject : MonoBehaviour
 {
     //Raycast
-    public float pickUpRange = 5;
-    private GameObject heldObj;
-    public Transform holdParent;
-    public float moveForce = 250;
+    public float pickUpRange = 5; //Rango para levantar objetos
+    private GameObject heldObj; //el objeto que sera levantado
+    public Transform holdParent; //referencia al lugar donde ira mientras lo levantamos
+    public float moveForce = 250; //Fuerza con la que mueve el objeto
 
     void Start()
     {
@@ -18,9 +18,10 @@ public class PickUpObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Linea dibujada para entender hacia donde realiza el raycast. Es solo de prueba
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 5;
         Debug.DrawRay(transform.position, forward, Color.red);
+
         //Raycast
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -29,8 +30,6 @@ public class PickUpObject : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                 {
-                    
-                    //OnDrawGizmosSelected();
                     PickupObject(hit.transform.gameObject);
                 }
             }
@@ -47,14 +46,6 @@ public class PickUpObject : MonoBehaviour
             MoveObject();
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 direction = transform.TransformDirection(Vector3.forward) * 5;
-        Gizmos.DrawRay(transform.position, direction);
-    }
-
     void MoveObject()
     {
         if (Vector3.Distance(heldObj.transform.position, holdParent.position) > 0.1f)
@@ -79,16 +70,9 @@ public class PickUpObject : MonoBehaviour
 
     void DropObject()
     {
-        /*
-        heldObj.GetComponent<Rigidbody>().useGravity = true;
-        heldObj.GetComponent<Rigidbody>().drag = 1;
-        */
-
-
         Rigidbody heldRig = heldObj.GetComponent<Rigidbody>();
         heldRig.useGravity = true;
         heldRig.drag = 1;
-
 
         heldObj.transform.parent = null;
         heldObj = null;

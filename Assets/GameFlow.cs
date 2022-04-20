@@ -4,27 +4,11 @@ using UnityEngine;
 
 public class GameFlow : MonoBehaviour
 {
+    /*
+     * En este momento el gameFlow no hace nada, creo que 
+     * va a ser util cuando tengamos muchas ordenes que administrar
+     * 
     public static int orderValue = 110;
     public static int plateValue = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (plateValue == orderValue)
-            {
-                Debug.Log("Correcta");
-            }
-            else
-            {
-                Debug.Log("Incorrecta");
-            }
-        }
-    }
+    */
 }
