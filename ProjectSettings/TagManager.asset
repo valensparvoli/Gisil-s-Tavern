@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bottle1
   - Bottle2
+  - Bottle3
   layers:
   - Default
   - TransparentFX

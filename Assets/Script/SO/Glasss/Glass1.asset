@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c893062b7566d2d479bc30b6553944cc, type: 3}
   m_Name: Glass1
   m_EditorClassIdentifier: 
+  drinkValue: 110
+  glass: {fileID: 6202868305575847826, guid: a9a2601f4d84b994eb8b3b00376404bb, type: 3}
+  planeOrder: {fileID: 0}

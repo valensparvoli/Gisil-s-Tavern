@@ -65,6 +65,7 @@ public class Glass : MonoBehaviour
         }
 
         //Preguntar si la corroboracion esta bien especificada en esta parte
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (glassValue == glassType.drinkValue)
@@ -76,11 +77,12 @@ public class Glass : MonoBehaviour
                 Debug.Log("Incorrecta");
             }
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Bottle bottle = other.gameObject.GetComponent<Bottle>();
+        //Bottle bottle = other.gameObject.GetComponent<Bottle>();
 
 
         /*
@@ -103,6 +105,7 @@ public class Glass : MonoBehaviour
         */
 
         // Corroboracion que utiliza SO
+        /*
         if (other.gameObject.CompareTag("Bottle1"))
         {
             Debug.Log("Choco");
@@ -116,7 +119,7 @@ public class Glass : MonoBehaviour
             Debug.Log(glassValue + "" + glassType.drinkValue);
             Destroy(other.gameObject);
         }
-
+        */
     }
 
     
