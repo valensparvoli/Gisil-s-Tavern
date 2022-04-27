@@ -10,6 +10,11 @@ public class PickUpObject : MonoBehaviour
     public Transform holdParent; //referencia al lugar donde ira mientras lo levantamos
     public float moveForce = 250; //Fuerza con la que mueve el objeto
 
+
+    public Bottle1 bottle;
+
+
+
     void Start()
     {
         heldObj = null;
@@ -31,11 +36,13 @@ public class PickUpObject : MonoBehaviour
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
                 {
                     PickupObject(hit.transform.gameObject);
+                    ChangeBottleScript(hit.transform.gameObject);
                 }
             }
             else
             {
                 DropObject();
+                bottle.RestartPosition();
             }
 
         }
@@ -76,6 +83,14 @@ public class PickUpObject : MonoBehaviour
 
         heldObj.transform.parent = null;
         heldObj = null;
+    }
+
+    public void ChangeBottleScript(GameObject pickObj)
+    {
+        if (pickObj.GetComponent<Bottle1>())
+        {
+            bottle = pickObj.GetComponent<Bottle1>();
+        }
     }
 
 }

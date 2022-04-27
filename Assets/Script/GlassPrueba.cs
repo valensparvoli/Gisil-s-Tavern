@@ -10,6 +10,8 @@ public class GlassPrueba : MonoBehaviour
     public List<string> dif; //Lista que guarda las diferencias entre vasos
     public int cantidadIngredientes;
 
+    // public SpawnBottleManager spawnBottleManager;
+
     [SerializeField]
     private GameObject glass; //Referencia al vaso en cuestion  
     private Renderer glassRenderer; //referencia al mesh render del vaso
@@ -38,9 +40,11 @@ public class GlassPrueba : MonoBehaviour
             }
             cantidadIngredientes -= 1;
             Destroy(other.gameObject); //Destruye el vaso
+            //spawnBottleManager.bluePlace = false;
             newGlassColor = new Color(0, 0, 1, 1);
             glassRenderer.material.SetColor("_Color", newGlassColor);
             Compare(); //Corrobora si terminamos el pedido
+            //spawnBottleManager.Respawn();
         }
         if (other.gameObject.CompareTag("Bottle2"))
         {
