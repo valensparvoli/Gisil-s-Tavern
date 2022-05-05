@@ -8,16 +8,25 @@ public class Bottle1 : MonoBehaviour
     public BottleSO typeBottle;
     public Transform posOriginal;
     */
-
     private Vector3 basePosition;
     private Quaternion baseRotation;
+    public PickUpObject pickObject;
 
     private void Awake()
     {
         basePosition = transform.position;
         baseRotation = transform.rotation;
     }
-
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Glass"))
+        {
+            pickObject.DropObject();
+            RestartPosition();
+        }
+    }
+    */
 
     public void RestartPosition()
     {

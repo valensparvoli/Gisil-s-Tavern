@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c893062b7566d2d479bc30b6553944cc, type: 3}
-  m_Name: GlassRed
+  m_Script: {fileID: 11500000, guid: 60a2f2a91bbabd845a2f612713a9c458, type: 3}
+  m_Name: Order1
   m_EditorClassIdentifier: 
-  drinkList:
+  orderList:
   - Blue
   - Red
-  cantidadIngredientesSO: 2
-  order: {fileID: 11400000, guid: 7100f5926b32240449ea624d02c7ebd0, type: 2}
+  orderTime: 0
+  cantidadIngredientesOrden: 3

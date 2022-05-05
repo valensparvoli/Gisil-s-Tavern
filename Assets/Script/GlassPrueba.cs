@@ -5,10 +5,13 @@ using System.Linq;
 
 public class GlassPrueba : MonoBehaviour
 {
+    public PedidoSO orderType; 
     public GlassSO glassType; //Guarda el SO del vaso
     public List<string> thisGlass; // Lista de lo que contiene ese vaso
     public List<string> dif; //Lista que guarda las diferencias entre vasos
-    public int cantidadIngredientes;
+    public int ingredientesFaltantes;
+    public GameManager gameManager;
+    
 
     // public SpawnBottleManager spawnBottleManager;
 
@@ -17,10 +20,16 @@ public class GlassPrueba : MonoBehaviour
     private Renderer glassRenderer; //referencia al mesh render del vaso
     private Color newGlassColor; // referencia al color que ira tomando el vaso
 
+    private void Awake()
+    {
+        glassType.drinkList.Clear(); //Limpiamos la lista para no generar problemas 
+        ingredientesFaltantes= orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
+    }
+
     private void Start()
     {
+        glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
         dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
-        cantidadIngredientes = glassType.cantidadIngredientesSO;
         glassRenderer = glass.GetComponent<Renderer>();
     }
     private void OnTriggerEnter(Collider other)
@@ -38,12 +47,19 @@ public class GlassPrueba : MonoBehaviour
             {
                 Debug.Log(item);
             }
-            cantidadIngredientes -= 1;
+
+            //ingredientesFaltantes -= 1;
+            gameManager.RestarIngrediente();
+            
             Destroy(other.gameObject); //Destruye el vaso
-            //spawnBottleManager.bluePlace = false;
+            gameManager.blue = true;
+            gameManager.RespawnBottle();
+            
             newGlassColor = new Color(0, 0, 1, 1);
             glassRenderer.material.SetColor("_Color", newGlassColor);
-            Compare(); //Corrobora si terminamos el pedido
+            //gameManager.Prueba();
+
+            //Compare(); //Corrobora si terminamos el pedido
             //spawnBottleManager.Respawn();
         }
         if (other.gameObject.CompareTag("Bottle2"))
@@ -56,13 +72,20 @@ public class GlassPrueba : MonoBehaviour
             {
                 Debug.Log(item);
             }
-            Destroy(other.gameObject);
-            cantidadIngredientes -= 1;
+            //Destroy(other.gameObject);
+
+            gameManager.RestarIngrediente();
+            Destroy(other.gameObject); //Destruye el vaso
+            gameManager.red = true;
+            gameManager.RespawnBottle();
+
+            
             newGlassColor = new Color(1, 0, 0, 1);
             glassRenderer.material.SetColor("_Color", newGlassColor);
-            Compare(); //Corrobora si terminamos el pedido
+            //gameManager.Prueba();
+            //Compare(); //Corrobora si terminamos el pedido
         }
-        if (other.gameObject.CompareTag("Bottle3"))
+        if (other.gameObject.CompareTag("Bottle3")) 
         {
             thisGlass.Add(botleName);
             dif = glassType.drinkList.Except(thisGlass).ToList();
@@ -70,34 +93,25 @@ public class GlassPrueba : MonoBehaviour
             {
                 Debug.Log(item);
             }
-            Destroy(other.gameObject);
-            cantidadIngredientes -= 1;
+
+            gameManager.RestarIngrediente();
+            Destroy(other.gameObject); //Destruye el vaso
+            gameManager.blue = true;
+            gameManager.RespawnBottle();
+
             newGlassColor = new Color(120, 171, 57, 1);
             glassRenderer.material.SetColor("_Color", newGlassColor);
-            Compare();
+            //gameManager.Prueba();
+            //Compare();
         }
     }
 
-    private void Compare()
+    public void ResetGlass()
     {
-        if (cantidadIngredientes == 0)
-        {
-            if (dif.Count == 0)
-            {
-                Debug.Log("Terminado");
-
-            }
-            else if (dif.Count == 1)
-            {
-                Debug.Log("Casi bien");
-            }
-            else
-            {
-                Debug.Log("Horrible");
-            }
-        }
-
-
+        thisGlass.Clear();
+        glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
+        dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
+        ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
     }
 
 }
