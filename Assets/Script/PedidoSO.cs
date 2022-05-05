@@ -6,6 +6,8 @@ using UnityEngine;
 public class PedidoSO : ScriptableObject
 {
     public List<string> orderList;
-    public int orderTime;
+    public float orderTime;
     public int cantidadIngredientesOrden;
+
+    public Material orderMat;
 }

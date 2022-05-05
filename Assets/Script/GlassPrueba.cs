@@ -11,8 +11,17 @@ public class GlassPrueba : MonoBehaviour
     public List<string> dif; //Lista que guarda las diferencias entre vasos
     public int ingredientesFaltantes;
     public GameManager gameManager;
-    
+    public DescarteBTN descarteBtn;
+    public bool correctPreparation;
 
+    public GameObject order;
+    public Renderer orderRenderer;
+
+    //Timer
+    public float timeValue;
+    bool timer;
+
+    public bool canDeliver = true;
     // public SpawnBottleManager spawnBottleManager;
 
     [SerializeField]
@@ -29,18 +38,39 @@ public class GlassPrueba : MonoBehaviour
     private void Start()
     {
         glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
+        timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
         dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
         glassRenderer = glass.GetComponent<Renderer>();
+        orderRenderer = order.GetComponent<Renderer>();
+        orderRenderer.material = orderType.orderMat;
+    }
+
+    private void Update()
+    {
+        if(timeValue> 0 && timer==false)
+        {
+            timeValue -= Time.deltaTime;
+        }
+        else
+        {
+            descarteBtn.hasTime = false;
+            timer = true;
+        }
+
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        string botleName = other.name;
+        //string botleName = other.name;
+        string bottleName = other.GetComponent<Bottle1>().bottleName;
 
         if (other.gameObject.CompareTag("Bottle1"))
         {
             Debug.Log("INGRESO");
             //glassType.glassList.Add(botleName);
-            thisGlass.Add(botleName); //Añade el nombre del vaso
+            //thisGlass.Add(botleName); //Añade el nombre del vaso
+            thisGlass.Add(bottleName);
+
             //dif =glassType.drinkList.Except(glassType.glassList).ToList();
             dif = glassType.drinkList.Except(thisGlass).ToList(); //corrobora las diferencias que existen ahora entre lo que deberia tener y lo que tiene
             foreach (var item in dif)
@@ -66,7 +96,9 @@ public class GlassPrueba : MonoBehaviour
         {
             //glassType.glassList.Add(botleName);
             //dif = glassType.drinkList.Except(glassType.glassList).ToList();
-            thisGlass.Add(botleName); //Añade el nombre del vaso
+            //thisGlass.Add(botleName); //Añade el nombre del vaso
+            thisGlass.Add(bottleName);
+
             dif = glassType.drinkList.Except(thisGlass).ToList(); //corrobora las diferencias que existen ahora entre lo que deberia tener y lo que tiene
             foreach (var item in dif)
             {
@@ -87,7 +119,8 @@ public class GlassPrueba : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Bottle3")) 
         {
-            thisGlass.Add(botleName);
+            //thisGlass.Add(botleName);
+            thisGlass.Add(bottleName);
             dif = glassType.drinkList.Except(thisGlass).ToList();
             foreach (var item in dif)
             {
@@ -96,7 +129,7 @@ public class GlassPrueba : MonoBehaviour
 
             gameManager.RestarIngrediente();
             Destroy(other.gameObject); //Destruye el vaso
-            gameManager.blue = true;
+            gameManager.green = true;
             gameManager.RespawnBottle();
 
             newGlassColor = new Color(120, 171, 57, 1);
@@ -106,9 +139,40 @@ public class GlassPrueba : MonoBehaviour
         }
     }
 
+
     public void ResetGlass()
     {
+        if (timer == true) //Se quedo sin tiempo
+        {
+            /*
+            thisGlass.Clear();
+            glassType.drinkList.Clear();
+            */
+            ChangeGlassValues();
+            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+            gameManager.score -= 10;
+            timer = false;
+            /*
+            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+            glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
+            dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
+            ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
+             */
+        }
+        else if (correctPreparation==true)
+        {
+            ChangeGlassValues();
+            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+        }   
+    }
+
+    void ChangeGlassValues()
+    {
         thisGlass.Clear();
+        glassType.drinkList.Clear();
+        orderRenderer.material = orderType.orderMat;
+        correctPreparation = false;
+        //timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
         glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
         dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
         ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 

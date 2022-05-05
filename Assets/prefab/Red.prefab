@@ -126,6 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cecc97b143abbd49ad2c9ad0378ce24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 0}
-  objectOriginalTransform: {fileID: 0}
+  bottleName: Red
   pickObject: {fileID: 0}

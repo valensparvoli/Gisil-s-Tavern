@@ -8,6 +8,9 @@ public class Bottle1 : MonoBehaviour
     public BottleSO typeBottle;
     public Transform posOriginal;
     */
+
+    public string bottleName;
+
     private Vector3 basePosition;
     private Quaternion baseRotation;
     public PickUpObject pickObject;

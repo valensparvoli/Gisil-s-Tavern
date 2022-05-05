@@ -6,10 +6,11 @@ public class EntregaBTN : MonoBehaviour
 {
     bool entrega = false;
     public GameManager gameManager;
+    public GlassPrueba glass;
     // Update is called once per frame
     void Update()
     {
-        if (entrega == true)
+        if (entrega == true && glass.canDeliver == true)
         {
             gameManager.Prueba();
             entrega = false;
