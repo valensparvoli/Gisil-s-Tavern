@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Order2
   m_EditorClassIdentifier: 
   orderList:
-  - Blue
+  - Red
   - Green
-  orderTime: 0
+  orderTime: 20
   cantidadIngredientesOrden: 3
+  orderMat: {fileID: 2100000, guid: bc4dd5207d49075489da03c11fad1762, type: 2}

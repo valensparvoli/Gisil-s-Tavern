@@ -5,14 +5,14 @@ using System.Linq;
 
 public class GlassPrueba : MonoBehaviour
 {
-    public PedidoSO orderType; 
+    [SerializeField] public PedidoSO orderType; //No se si al suabas en otr script
     public GlassSO glassType; //Guarda el SO del vaso
     public List<string> thisGlass; // Lista de lo que contiene ese vaso
     public List<string> dif; //Lista que guarda las diferencias entre vasos
     public int ingredientesFaltantes;
     public GameManager gameManager;
     public DescarteBTN descarteBtn;
-    public bool correctPreparation;
+    [HideInInspector] public bool correctPreparation;
 
     public GameObject order;
     public Renderer orderRenderer;
@@ -139,7 +139,7 @@ public class GlassPrueba : MonoBehaviour
         }
     }
 
-
+    
     public void ResetGlass()
     {
         if (timer == true) //Se quedo sin tiempo

@@ -15,5 +15,6 @@ MonoBehaviour:
   orderList:
   - Blue
   - Red
-  orderTime: 0
+  orderTime: 15
   cantidadIngredientesOrden: 3
+  orderMat: {fileID: 2100000, guid: 93386c30832877c48a688e65d9ca6ecf, type: 2}

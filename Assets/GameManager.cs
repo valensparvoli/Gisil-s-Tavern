@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GlassPrueba glass1;
     public List<PedidoSO> typeOrderList;
     bool changeOrder;
+
+    //Timer
+    float timeValue = 40;
+    public GameObject restartCanvas;
+    [SerializeField] Text generalScore;
+    [SerializeField] Text generalTimer;
 
     //ScorePlayer
     public int score=10;
@@ -44,6 +51,16 @@ public class GameManager : MonoBehaviour
             
         }
         */
+        generalTimer.text = timeValue.ToString();
+        if (timeValue > 0)
+        {
+            timeValue -= Time.deltaTime;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            restartCanvas.SetActive(true);
+        }
     }
     private void Start()
     {
@@ -56,6 +73,12 @@ public class GameManager : MonoBehaviour
         PedidoSO newOrder = listToRandomize[randomNum];
         return newOrder;
     }
+
+    public void RestartEscene()
+    {
+        SceneManager.LoadScene("Nivel1");
+    }
+
     public void Prueba() //Corroboracion que se hace de si lo entregado esta correctamente preparado. Es llamado desde el btn
     {
 
