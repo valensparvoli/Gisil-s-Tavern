@@ -10,15 +10,30 @@ public class EntregaBTN : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (entrega == true && glass.canDeliver == true)
         {
             gameManager.Prueba();
             entrega = false;
+            glass.entregaAnimation();
+            //glass.glassAnimator.SetBool("entregaBool", false);
+        }*/
+        if (entrega == true )
+        {
+            gameManager.TesteoVaso();
+            entrega = false;
+            glass.stopTimer = false;
+            glass.StartCoroutine("Timer");
+            glass.entregaAnimation();
+            //glass.glassAnimator.SetBool("entregaBool", false);
         }
     }
 
     private void OnMouseDown() 
     {
         entrega = true;
+        gameManager.glass1 = glass.GetComponent<GlassPrueba>();
+        Debug.Log(gameManager.glass1);
+        //glass.glassAnimator.SetBool("entregaBool", true);
     }
 }

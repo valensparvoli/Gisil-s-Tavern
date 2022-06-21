@@ -11,24 +11,35 @@ public class DescarteBTN : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (descarte == true)
+        if (glass.gameTime <= 0)
         {
-            if (hasTime == true) // Todavia tiene tiempo
-            {
-                gameManager.glass1.ResetGlass();
-                descarte = false;
-            }
-            else if(descarte==true && hasTime ==false) //No tiene tiempo y apreta para descartar
-            {
-                gameManager.DescartarYNuevaOrden();
-                descarte = false;
-
-            }            
+            hasTime = false;
         }
+
+        if (descarte == false)
+            return;
+        
+        if (hasTime == true) // Todavia tiene tiempo
+        {
+            glass.ResetGlassValuesDescarte();
+            descarte = false;
+        }
+        else if (descarte == true && hasTime == false) //No tiene tiempo y apreta para descartar
+        {
+            //gameManager.Prueba();
+            Debug.Log("Entre");
+            gameManager.score -= 10;
+            gameManager.TesteoVaso();
+            //glass.stopTimer = false;
+            descarte = false;
+        }
+        
     }
 
     private void OnMouseDown()
     {
         descarte = true;
+        gameManager.glass1 = glass.GetComponent<GlassPrueba>();
+        glass.descarteAnimation();
     }
 }

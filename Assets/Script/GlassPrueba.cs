@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
+
 
 public class GlassPrueba : MonoBehaviour
 {
@@ -19,7 +21,7 @@ public class GlassPrueba : MonoBehaviour
 
     //Timer
     public float timeValue;
-    bool timer;
+    public bool timer;
 
     public bool canDeliver = true;
     // public SpawnBottleManager spawnBottleManager;
@@ -29,25 +31,94 @@ public class GlassPrueba : MonoBehaviour
     private Renderer glassRenderer; //referencia al mesh render del vaso
     private Color newGlassColor; // referencia al color que ira tomando el vaso
 
+
+    //Animaciones
+    public Animator glassAnimator;
+    public Animation descarteAnim;
+
+    //public Image sliderBar;
+    public Slider sliderBarTime;
+    public float gameTime;
+    [SerializeField] float time;
+    public bool stopTimer;
+
+    public Canvas UITimerCanvas;
+
+    //Sound
+    public AudioSource source;
+    public AudioClip vasoDeslizando;
+    public AudioClip satisfaccion;
+
+
+    //Variable encargada de la calidad de la orden
+    public int calidadOrden = 0;
+
+    public void descarteAnimation()
+    {
+        glassAnimator.Play("descarteAnim");
+    }
+
+    public void entregaAnimation()
+    {
+        glassAnimator.Play("entregarAnim");
+        source.clip = vasoDeslizando;
+        source.Play();
+    }
+
     private void Awake()
     {
+        /*
         glassType.drinkList.Clear(); //Limpiamos la lista para no generar problemas 
         ingredientesFaltantes= orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
+        */
+        AssignValues();
     }
+
 
     private void Start()
     {
+        /*
         glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
-        timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+        gameTime = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
         dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
         glassRenderer = glass.GetComponent<Renderer>();
         orderRenderer = order.GetComponent<Renderer>();
         orderRenderer.material = orderType.orderMat;
+
+        stopTimer = false;
+        //gameTime= (gameTime / 100) * 100;
+        //sliderBar.fillAmount = gameTime;
+        sliderBarTime.maxValue = gameTime;
+        sliderBarTime.value = gameTime;
+        */
+
+        //AssignValues();
+        StartCoroutine("Timer");
+        glassRenderer = glass.GetComponent<Renderer>();
+        orderRenderer = order.GetComponent<Renderer>();
     }
+
+    public void AssignValues()
+    {
+        thisGlass.Clear();
+        glassType.drinkList.Clear(); //Limpiamos la lista para no generar problemas 
+        ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
+        glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
+        gameTime = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+        time = orderType.orderTime;
+        dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
+        orderRenderer.material = orderType.orderMat;
+        stopTimer = false;
+        sliderBarTime.maxValue = gameTime;
+        sliderBarTime.value = gameTime;
+        calidadOrden = 0;
+    }
+
 
     private void Update()
     {
-        if(timeValue> 0 && timer==false)
+        /*
+        if(timeValue> 0 && !timer)
         {
             timeValue -= Time.deltaTime;
         }
@@ -56,9 +127,39 @@ public class GlassPrueba : MonoBehaviour
             descarteBtn.hasTime = false;
             timer = true;
         }
+        */
 
+        //time = gameTime - Time.time;
+        /*
+        if (time <= 0) 
+        {
+            stopTimer = true;
+        }
 
+        if(stopTimer== false)
+        {
+            sliderBarTime.value = time;
+        }*/
+        if (gameTime <= 0)
+        {
+            stopTimer = true;
+        }
+        if (stopTimer == false)
+        {
+            sliderBarTime.value = gameTime;
+        }
     }
+
+    IEnumerator Timer()
+    {
+        while (gameTime >= 0)
+        {
+            yield return new WaitForSeconds(1);
+            gameTime -= 1f;
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         //string botleName = other.name;
@@ -70,16 +171,17 @@ public class GlassPrueba : MonoBehaviour
             //glassType.glassList.Add(botleName);
             //thisGlass.Add(botleName); //Añade el nombre del vaso
             thisGlass.Add(bottleName);
-
+            other.GetComponent<Bottle1>().PlayBottleSound();
             //dif =glassType.drinkList.Except(glassType.glassList).ToList();
             dif = glassType.drinkList.Except(thisGlass).ToList(); //corrobora las diferencias que existen ahora entre lo que deberia tener y lo que tiene
             foreach (var item in dif)
             {
                 Debug.Log(item);
             }
-
+            
             //ingredientesFaltantes -= 1;
             gameManager.RestarIngrediente();
+            
             
             Destroy(other.gameObject); //Destruye el vaso
             gameManager.blue = true;
@@ -139,31 +241,45 @@ public class GlassPrueba : MonoBehaviour
         }
     }
 
-    
     public void ResetGlass()
     {
-        if (timer == true) //Se quedo sin tiempo
+        /*
+        ChangeGlassValues();
+        gameTime = orderType.orderTime;
+        
+        if (stopTimer == false) //Tiene tiempo
         {
-            /*
-            thisGlass.Clear();
-            glassType.drinkList.Clear();
-            */
             ChangeGlassValues();
-            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
-            gameManager.score -= 10;
-            timer = false;
-            /*
-            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
-            glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
-            dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
-            ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
-             */
+            descarteBtn.hasTime = true;
         }
-        else if (correctPreparation==true)
+        else //No tiene tiempo
+        {
+            descarteBtn.hasTime = false;
+        }
+
+        if (correctPreparation)
         {
             ChangeGlassValues();
-            timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
-        }   
+            gameTime = orderType.orderTime;
+        }
+        */
+        
+        switch (calidadOrden)
+        {
+            case 1:
+                Debug.Log("1");
+                break;
+            case 0:
+                Debug.Log("0");
+                break;
+        }
+
+    }
+
+    public void ResetGlassValuesDescarte()
+    {
+        thisGlass.Clear();
+
     }
 
     void ChangeGlassValues()
@@ -172,10 +288,12 @@ public class GlassPrueba : MonoBehaviour
         glassType.drinkList.Clear();
         orderRenderer.material = orderType.orderMat;
         correctPreparation = false;
-        //timeValue = orderType.orderTime; //Contador igualado al tiempo que debe tener la orden
+
+
         glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
         dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
         ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
+
     }
 
 }

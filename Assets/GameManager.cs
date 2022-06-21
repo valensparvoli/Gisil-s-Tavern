@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     bool changeOrder;
 
     //Timer
-    float timeValue = 40;
+    float timeValue = 4000;
     public GameObject restartCanvas;
     [SerializeField] Text generalScore;
     [SerializeField] Text generalTimer;
@@ -21,11 +21,6 @@ public class GameManager : MonoBehaviour
     public int score=10;
     public Text scoreText;
     public Text timerText;
-
-    // Timer
-    bool firstGlassTimmer;
-    bool secondGlassTimer;
-    bool thirdGlassTimmer;
 
     //Blue Respawn
     public bool blue= false;
@@ -59,6 +54,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 0;
+            timeValue = 0;
+            Cursor.lockState = CursorLockMode.Confined;
             restartCanvas.SetActive(true);
         }
     }
@@ -77,62 +74,59 @@ public class GameManager : MonoBehaviour
     public void RestartEscene()
     {
         SceneManager.LoadScene("Nivel1");
+        Time.timeScale = 1;
+        timeValue = 40;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void Prueba() //Corroboracion que se hace de si lo entregado esta correctamente preparado. Es llamado desde el btn
+    public void TesteoVaso() //Corroboracion que se hace de si lo entregado esta correctamente preparado. Es llamado desde el btn
     {
-
-        if (glass1.dif.Count == 0)
+        
+        if (glass1.dif.Count <= 0 )
         {
+            glass1.calidadOrden = 1;
             Debug.Log("Son iguales");
             changeOrder = true;
-            glass1.correctPreparation = true;
+            
             ChangeOrder();
             glass1.ResetGlass();
             score += 15;
             ScoreUpdate();
-            
+            glass1.AssignValues();
             //glass1.orderType= GetRandomOrder(typeOrderList); 
             //GetRandomOrder(typeOrderList);
         }
         else
         {
+            glass1.calidadOrden = 0;
             Debug.Log("No son iguales");
             changeOrder = true;
             ChangeOrder();
             glass1.ResetGlass();
             score -= 10;
             ScoreUpdate();
+            glass1.AssignValues();
         }
 
-
-        /*
-        Debug.Log("Ingreso en prueba");
-        if (glass1.thisGlass.Equals(glass1.orderType.orderList))
-        {
-            Debug.Log("Iguales");
-        } else
-        {
-            Debug.Log("No son iguales");
-        }
-        */
     }
     public void RespawnBottle() //Funcion que respawnea botellas, es llamada unicamente desde el glass
     {
-        if (blue == true)
+        if (blue)
         {
             blue = false;
             Instantiate(blueBottle, blueOriginalTransform.transform.position, blueOriginalTransform.rotation);
-        } else if (red == true)
+        }
+        else if (red)
         {
             red = false;
             Instantiate(redBottle, redOriginalTransform.transform.position, redOriginalTransform.rotation);
-        } else if (green == true)
+        }
+        else if (green)
         {
             green = false;
             Instantiate(greenBottle, greenOriginalTransform.transform.position, greenOriginalTransform.transform.rotation);
         }
-        
+
     }
     public void DescartarYNuevaOrden()
     {
@@ -150,12 +144,11 @@ public class GameManager : MonoBehaviour
 
     public void ChangeOrder() //Cambia la orden del vaso, haciendo que el pedido cambie 
     {
-        if (changeOrder == true)
-        {
-            glass1.orderType = GetRandomOrder(typeOrderList);
-            changeOrder = false;
-        } 
+        if (!changeOrder)      
+            return;
         
+        glass1.orderType = GetRandomOrder(typeOrderList);
+        changeOrder = false;
     }
 
     public void RestarIngrediente() //Resta los ingredientes del vaso

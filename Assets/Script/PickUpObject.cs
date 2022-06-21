@@ -10,10 +10,7 @@ public class PickUpObject : MonoBehaviour
     public Transform holdParent; //referencia al lugar donde ira mientras lo levantamos
     public float moveForce = 250; //Fuerza con la que mueve el objeto
 
-
     public Bottle1 bottle;
-
-
 
     void Start()
     {
