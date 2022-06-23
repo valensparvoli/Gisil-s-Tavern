@@ -53,6 +53,8 @@ public class GlassPrueba : MonoBehaviour
     //Variable encargada de la calidad de la orden
     public int calidadOrden = 0;
 
+    public Coroutine _timer;
+
     public void descarteAnimation()
     {
         glassAnimator.Play("descarteAnim");
@@ -93,6 +95,9 @@ public class GlassPrueba : MonoBehaviour
         */
 
         //AssignValues();
+
+
+        //_timer = StartCoroutine(Timer());
         StartCoroutine("Timer");
         glassRenderer = glass.GetComponent<Renderer>();
         orderRenderer = order.GetComponent<Renderer>();
@@ -129,8 +134,8 @@ public class GlassPrueba : MonoBehaviour
         }
         */
 
-        //time = gameTime - Time.time;
-        /*
+        time = gameTime - Time.deltaTime;
+        
         if (time <= 0) 
         {
             stopTimer = true;
@@ -139,7 +144,8 @@ public class GlassPrueba : MonoBehaviour
         if(stopTimer== false)
         {
             sliderBarTime.value = time;
-        }*/
+        }
+        /*
         if (gameTime <= 0)
         {
             stopTimer = true;
@@ -147,7 +153,22 @@ public class GlassPrueba : MonoBehaviour
         if (stopTimer == false)
         {
             sliderBarTime.value = gameTime;
+            //StopCoroutine(_timer);
+            StopCoroutine("Timer");
         }
+        */
+    }
+
+    public void StartTimer()
+    {
+        _timer = StartCoroutine(Timer());
+        StartCoroutine("Timer");
+    }
+
+    public void StopTimer()
+    {
+        StopCoroutine("Timer");
+        //StopCoroutine(_timer);
     }
 
     IEnumerator Timer()

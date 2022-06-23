@@ -23,7 +23,8 @@ public class EntregaBTN : MonoBehaviour
             gameManager.TesteoVaso();
             entrega = false;
             glass.stopTimer = false;
-            glass.StartCoroutine("Timer");
+            glass.StopTimer();
+            glass.StartTimer();
             glass.entregaAnimation();
             //glass.glassAnimator.SetBool("entregaBool", false);
         }
