@@ -9,4 +9,5 @@ public class PedidoSO : ScriptableObject
     public int cantidadIngredientesOrden;
 
     public Material orderMat;
+    public Material liquidMat;
 }

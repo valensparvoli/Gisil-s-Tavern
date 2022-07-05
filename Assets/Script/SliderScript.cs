@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SliderScript : MonoBehaviour
 {
+    /*
     public GlassPrueba glass;
 
     public Canvas UICanvas;
@@ -28,6 +29,6 @@ public class SliderScript : MonoBehaviour
         }
         UICanvas.gameObject.SetActive(false);
     }
-
+    */
 
 }

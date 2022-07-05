@@ -8,6 +8,9 @@ TagManager:
   - Bottle2
   - Bottle3
   - Glass
+  - RoomLight
+  - Interact
+  - Hand
   layers:
   - Default
   - TransparentFX

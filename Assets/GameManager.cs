@@ -7,20 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GlassPrueba glass1;
+    public GlassPrueba glass;
     public List<PedidoSO> typeOrderList;
     bool changeOrder;
 
     //Timer
-    float timeValue = 4000;
     public GameObject restartCanvas;
     [SerializeField] Text generalScore;
-    [SerializeField] Text generalTimer;
 
     //ScorePlayer
-    public int score=10;
+    public int score;
     public Text scoreText;
-    public Text timerText;
 
     //Blue Respawn
     public bool blue= false;
@@ -37,28 +34,16 @@ public class GameManager : MonoBehaviour
     public GameObject greenBottle;
     public Transform greenOriginalTransform;
 
-    private void Update()
-    {
-        timerText.text = glass1.timeValue.ToString();
-        /*
-        if (glass1.timeValue <= 0)
-        {
-            
-        }
-        */
-        generalTimer.text = timeValue.ToString();
-        if (timeValue > 0)
-        {
-            timeValue -= Time.deltaTime;
-        }
-        else
-        {
-            Time.timeScale = 0;
-            timeValue = 0;
-            Cursor.lockState = CursorLockMode.Confined;
-            restartCanvas.SetActive(true);
-        }
-    }
+    //Yellow Respawn
+    public bool yellow = false;
+    public GameObject yellowBottle;
+    public Transform yellowOriginalTransform;
+
+    //Black Respawn
+    public bool black = false;
+    public GameObject blackBottle;
+    public Transform blackOriginalTransform;
+
     private void Start()
     {
         ScoreUpdate();
@@ -71,41 +56,42 @@ public class GameManager : MonoBehaviour
         return newOrder;
     }
 
+    /*
     public void RestartEscene()
     {
-        SceneManager.LoadScene("Nivel1");
+        //SceneManager.LoadScene("Nivel1");
         Time.timeScale = 1;
         timeValue = 40;
         Cursor.lockState = CursorLockMode.Locked;
     }
+    */
 
     public void TesteoVaso() //Corroboracion que se hace de si lo entregado esta correctamente preparado. Es llamado desde el btn
     {
-        
-        if (glass1.dif.Count <= 0 )
+        if (glass.dif.Count <= 0 )
         {
-            glass1.calidadOrden = 1;
+            glass.calidadOrden = 1;
             Debug.Log("Son iguales");
             changeOrder = true;
             
             ChangeOrder();
-            glass1.ResetGlass();
+            glass.ResetGlass();
             score += 15;
             ScoreUpdate();
-            glass1.AssignValues();
+            glass.AssignValues();
             //glass1.orderType= GetRandomOrder(typeOrderList); 
             //GetRandomOrder(typeOrderList);
         }
         else
         {
-            glass1.calidadOrden = 0;
+            glass.calidadOrden = 0;
             Debug.Log("No son iguales");
             changeOrder = true;
             ChangeOrder();
-            glass1.ResetGlass();
+            glass.ResetGlass();
             score -= 10;
             ScoreUpdate();
-            glass1.AssignValues();
+            glass.AssignValues();
         }
 
     }
@@ -126,13 +112,23 @@ public class GameManager : MonoBehaviour
             green = false;
             Instantiate(greenBottle, greenOriginalTransform.transform.position, greenOriginalTransform.transform.rotation);
         }
+        else if (yellow)
+        {
+            yellow = false;
+            Instantiate(yellowBottle, yellowOriginalTransform.transform.position, yellowOriginalTransform.transform.rotation);
+        }
+        else if (black)
+        {
+            black = false;
+            Instantiate(blackBottle, blackOriginalTransform.transform.position, blackOriginalTransform.transform.rotation);
+        }
 
     }
     public void DescartarYNuevaOrden()
     {
         changeOrder = true;
         ChangeOrder();
-        glass1.ResetGlass();
+        glass.ResetGlass();
         score -= 10;
         ScoreUpdate();
     }
@@ -147,12 +143,21 @@ public class GameManager : MonoBehaviour
         if (!changeOrder)      
             return;
         
-        glass1.orderType = GetRandomOrder(typeOrderList);
+        glass.orderType = GetRandomOrder(typeOrderList);
         changeOrder = false;
     }
 
     public void RestarIngrediente() //Resta los ingredientes del vaso
     {
-        glass1.ingredientesFaltantes -= 1;
+        glass.ingredientesFaltantes -= 1;
+    }
+
+    private void SaveData()
+    {
+
+    }
+    private void LoadData()
+    {
+
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6224562374793718291}
   m_Layer: 0
   m_Name: RedBottle
-  m_TagString: Bottle2
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,13 +29,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7009999133121905358}
-  m_LocalRotation: {x: -0.000000034301273, y: -0.41751918, z: -0.000000015760909, w: 0.90866816}
-  m_LocalPosition: {x: 8.082685, y: 1.1339252, z: 6.736382}
-  m_LocalScale: {x: 0.20325795, y: 0.20325796, z: 0.20325795}
+  m_LocalRotation: {x: 0.000000021844258, y: -0.043663193, z: 7.069395e-10, w: 0.9990463}
+  m_LocalPosition: {x: 7.728, y: 1.1101453, z: 6.709}
+  m_LocalScale: {x: 0.29180935, y: 0.29180932, z: 0.29180935}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -49.356, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -5.005, z: 0}
 --- !u!33 &6749926260903270353
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -43,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7009999133121905358}
-  m_Mesh: {fileID: -7553716758358721678, guid: 01a5402a90381fb4783af09a1f445e64, type: 3}
+  m_Mesh: {fileID: -7553716758358721678, guid: 30414557604bdef44a28ac290199ca11, type: 3}
 --- !u!23 &8811426133219779355
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 77ea4598a91bbba4faae0ba7021ebf5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,8 +114,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47490335, y: 1.4160742, z: 0.4749033}
-  m_Center: {x: -0.0000037923455, y: 0.6618454, z: -0.00000002235174}
+  m_Size: {x: 0.38476285, y: 0.8632394, z: 0.37913322}
+  m_Center: {x: 0.0001297146, y: 0.52714014, z: -0.0000018998969}
 --- !u!114 &7893100146935569544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,10 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 6224562374793718291}
-  bottleName: Red
+  bottleName: Blue
   pickObject: {fileID: 0}
   botellaDestapandose: {fileID: 8300000, guid: 8774ecc8de3a7894ab7961f4ca1e8550, type: 3}
   ruidoBotella: {fileID: 8300000, guid: 50a25caddfba4bf43a7ee7043d6efbc1, type: 3}
+  myParticleSistem: {fileID: 0}
 --- !u!82 &6224562374793718291
 AudioSource:
   m_ObjectHideFlags: 0
@@ -152,8 +154,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.18032932
+  MaxDistance: 1.8149462
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

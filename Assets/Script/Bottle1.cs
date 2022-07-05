@@ -16,14 +16,17 @@ public class Bottle1 : MonoBehaviour
     public PickUpObject pickObject;
     //public List<AudioClip> audioList;
     //AudioClip audioCp;
+    public Material bottleMat;
     public AudioClip botellaDestapandose;
     public AudioClip ruidoBotella;
+
+    //public ParticleSystem myParticleSistem;
 
     private void Awake()
     {
         basePosition = transform.position;
         baseRotation = transform.rotation;
-        
+        //myParticleSistem = GetComponent<ParticleSystem>();
     }
     /*
     private void OnTriggerEnter(Collider other)
@@ -32,6 +35,19 @@ public class Bottle1 : MonoBehaviour
         {
             pickObject.DropObject();
             RestartPosition();
+        }
+    }
+    */
+    /*
+    private void Update()
+    {
+        if (Vector3.Angle(Vector3.down, transform.forward) <= 90f)
+        {
+            myParticleSistem.Play();
+
+        }else
+        {
+            myParticleSistem.Stop();
         }
     }
     */

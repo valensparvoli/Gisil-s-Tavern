@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderList:
   - Red
-  - Green
-  - Blue
+  - Yellow
   orderTime: 30
   cantidadIngredientesOrden: 3
   orderMat: {fileID: 2100000, guid: 23a1dde0a0201b545af802aa2a4bf71b, type: 2}
+  liquidMat: {fileID: 2100000, guid: 791acf8f6cb787e4da008f6a5154dda2, type: 2}

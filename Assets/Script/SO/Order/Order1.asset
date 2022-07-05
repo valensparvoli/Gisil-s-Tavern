@@ -18,3 +18,4 @@ MonoBehaviour:
   orderTime: 15
   cantidadIngredientesOrden: 3
   orderMat: {fileID: 2100000, guid: 93386c30832877c48a688e65d9ca6ecf, type: 2}
+  liquidMat: {fileID: 2100000, guid: 4609d1ea90cdecb42b3480111dfb855d, type: 2}
