@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     [SerializeField] bool Menu;
-    [SerializeField] GameObject playerStats;
+    //[SerializeField] GameObject playerStats;
 
    
     
@@ -19,13 +19,13 @@ public class LevelController : MonoBehaviour
     void LoadNivel2()
     {
         SceneManager.LoadScene("Nivel2");
-        DontDestroyOnLoad(playerStats);
+        //DontDestroyOnLoad(playerStats);
     }
 
     public void LoadFinalScene()
     {
         SceneManager.LoadScene("FinalScene");
-        DontDestroyOnLoad(playerStats);
+        //DontDestroyOnLoad(playerStats);
     }
 
     private void OnTriggerEnter(Collider other)

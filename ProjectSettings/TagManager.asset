@@ -11,6 +11,7 @@ TagManager:
   - RoomLight
   - Interact
   - Hand
+  - Change
   layers:
   - Default
   - TransparentFX

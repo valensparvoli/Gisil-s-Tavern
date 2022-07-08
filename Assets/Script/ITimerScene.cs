@@ -12,6 +12,8 @@ public class ITimerScene : MonoBehaviour
     [SerializeField] private Slider slider;
     private float timer;
     [SerializeField] private LevelController lvlControler;
+    [SerializeField] private GameManager gameManager;
+    public bool change;
 
     private void Start() 
     {
@@ -31,7 +33,8 @@ public class ITimerScene : MonoBehaviour
             {
                 PauseTimer();
                 Debug.Log($"Nos quedamos sin tiempo...");
-                lvlControler.LoadFinalScene();
+                change = true;
+               
                 // QUE PASA SI SE TERMINA EL TIEMPO.
             }
         }

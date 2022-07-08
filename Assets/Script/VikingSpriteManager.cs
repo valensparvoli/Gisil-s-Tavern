@@ -42,6 +42,11 @@ public class VikingSpriteManager : MonoBehaviour
     {
         vikingSprite.GetComponent<SpriteRenderer>().sprite = viking.vikingHappy;
     }
+
+    void BackImage()
+    {
+        vikingSprite.GetComponent<SpriteRenderer>().sprite = viking.vikingBack;
+    }
     
     private void OnTriggerEnter(Collider other)
     {
@@ -50,11 +55,23 @@ public class VikingSpriteManager : MonoBehaviour
             Debug.Log("EntroVaso");
             HappyImage();
         }
+        /*
+        if (other.gameObject.CompareTag("Change"))
+        {
+            changeSprite = true;
+            ChangeSprite();
+        }
+        */
     }
 
     void ChangeAnimation()
     {
-        animator.Play("ChangeSprite");
+        //animator.Play("ChangeSprite");
+        animator.Play("Rotate");
+        /*
+        BackImage();
+        animator.Play("RotateAndChange");
+        */
     }
 
     private void OnTriggerExit(Collider other)
@@ -64,6 +81,7 @@ public class VikingSpriteManager : MonoBehaviour
             ChangeAnimation();
             changeSprite = true;
             ChangeSprite();
+            
         }
     }
 

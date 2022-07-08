@@ -44,9 +44,17 @@ public class GameManager : MonoBehaviour
     public GameObject blackBottle;
     public Transform blackOriginalTransform;
 
+    public Animator spritePuntaje;
+    [SerializeField] ITimerScene generalTimer;
+    [SerializeField] int levelIndex;
+    public bool canChangeScene;
+    [SerializeField] GameObject lvlScene;
+    [SerializeField] GameObject postLevelScenePass;
+    [SerializeField] GameObject postLevelSceneRetry;
     private void Start()
     {
         ScoreUpdate();
+        ScoreCheecking();
     }
     
     public PedidoSO GetRandomOrder(List<PedidoSO>listToRandomize) //Randomiza un numero de las lista de las posibles ordenes 
@@ -54,6 +62,20 @@ public class GameManager : MonoBehaviour
         int randomNum = Random.Range(0, typeOrderList.Count);
         PedidoSO newOrder = listToRandomize[randomNum];
         return newOrder;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            spritePuntaje.Play("+15");
+        }
+        if (generalTimer.change == true)
+        {
+            NextLevelCorroboration();
+            //lvlScene.SetActive(false);
+        }
+
     }
 
     /*
@@ -77,7 +99,9 @@ public class GameManager : MonoBehaviour
             ChangeOrder();
             glass.ResetGlass();
             score += 15;
+            spritePuntaje.Play("+15");
             ScoreUpdate();
+            ScoreCheecking();
             glass.AssignValues();
             //glass1.orderType= GetRandomOrder(typeOrderList); 
             //GetRandomOrder(typeOrderList);
@@ -91,6 +115,7 @@ public class GameManager : MonoBehaviour
             glass.ResetGlass();
             score -= 10;
             ScoreUpdate();
+            ScoreCheecking();
             glass.AssignValues();
         }
 
@@ -150,6 +175,44 @@ public class GameManager : MonoBehaviour
     public void RestarIngrediente() //Resta los ingredientes del vaso
     {
         glass.ingredientesFaltantes -= 1;
+    }
+
+    private void ScoreCheecking()
+    {
+        if (score <= 90)
+        {
+            canChangeScene = true;
+        }
+    }
+
+    public void NextLevelCorroboration()
+    {
+        switch (levelIndex)
+        {
+            case 1:
+                if (score <=90)
+                {
+                    lvlScene.SetActive(false);
+                    postLevelScenePass.SetActive(true);
+                }
+                else
+                {
+                    lvlScene.SetActive(false);
+                    postLevelSceneRetry.SetActive(true);
+                }
+                break;
+            case 2:
+                if (score >= 90)
+                {
+
+                }
+                break;
+                
+        }
+
+
+
+
     }
 
     private void SaveData()

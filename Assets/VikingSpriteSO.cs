@@ -7,4 +7,5 @@ public class VikingSpriteSO : ScriptableObject
 {
     public Sprite vikingWaiting;
     public Sprite vikingHappy;
+    public Sprite vikingBack;
 }

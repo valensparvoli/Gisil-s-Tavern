@@ -66,6 +66,10 @@ public class GlassPrueba : MonoBehaviour
     // public Coroutine _timer;
 
     public ITimer iTimer;
+
+
+
+
     public void descarteAnimation()
     {
         glassAnimator.Play("descarteAnim");
@@ -113,6 +117,7 @@ public class GlassPrueba : MonoBehaviour
         glassRenderer = glass.GetComponent<Renderer>();
         orderRenderer = order.GetComponent<Renderer>();
         liquidRenderer = liquidObj.GetComponent<Renderer>();
+
     }
 
     public void AssignValues()
@@ -299,6 +304,7 @@ public class GlassPrueba : MonoBehaviour
         //if (other.gameObject.CompareTag("Bottle1"))
         if (collision.gameObject.CompareTag("Interact"))
         {
+            collision.gameObject.GetComponent<Bottle1>().PlayBottleSound();
             if (bottleName == "Blue")
             {
                 Debug.Log("INGRESO");
