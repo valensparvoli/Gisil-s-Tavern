@@ -8,7 +8,6 @@ public class Bottle1 : MonoBehaviour
     public string bottleName;
     private Vector3 basePosition;
     private Quaternion baseRotation;
-    public PickUpObject pickObject;
     public Material bottleMat;
     public AudioClip botellaDestapandose;
     public AudioClip ruidoBotella;
@@ -20,8 +19,6 @@ public class Bottle1 : MonoBehaviour
     }
     public void RestartPosition()
     {
-        //transform.SetPositionAndRotation(basePosition, baseRotation);
-        //audioCp = audioList[1];
         source.clip = ruidoBotella;
         source.Play();
     }
@@ -32,10 +29,13 @@ public class Bottle1 : MonoBehaviour
             source.clip = botellaDestapandose;
             source.Play();
         }
+        if (collision.collider.CompareTag("Scene"))
+        {
+            transform.SetPositionAndRotation(basePosition, baseRotation);
+        }
     }
     public void PlayBottleSound()
     {
-        //audioCp = audioList[2];
         source.clip = botellaDestapandose;
         source.Play();
     }

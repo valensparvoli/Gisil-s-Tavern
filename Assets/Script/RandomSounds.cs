@@ -14,7 +14,6 @@ public class RandomSounds : MonoBehaviour
     public AudioClip GetRandomSound(List<AudioClip> soundToRandomize)
     {
         int randomNum = Random.Range(0, audioList.Count);
-        //Sprite newSprite = spritesToRandomize[randomNum];
         AudioClip newSound = soundToRandomize[randomNum];
         return newSound;
     }
@@ -53,8 +52,5 @@ public class RandomSounds : MonoBehaviour
             changeSound = true;
             ChangeSound();
         }
-
-
-
     }
 }

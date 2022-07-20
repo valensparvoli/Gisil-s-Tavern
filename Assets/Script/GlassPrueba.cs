@@ -15,7 +15,6 @@ public class GlassPrueba : MonoBehaviour
     public GameManager gameManager;
     public DescarteBTN descarteBtn;
     [HideInInspector] public bool correctPreparation;
-
     public GameObject order;
     public Renderer orderRenderer;
     [SerializeField] GameObject liquidObj;
@@ -25,27 +24,19 @@ public class GlassPrueba : MonoBehaviour
     public Material yellow;
     public Material black;
     public Material green;
-
-    //Timer
     public float timeValue;
     public bool timer;
-
     public bool canDeliver = true;
-
     [SerializeField]
     private GameObject glass; 
     private Renderer glassRenderer;
     private Color newGlassColor; 
-    //Animaciones
     public Animator glassAnimator;
     public GlassAnimationMan animManager;
-    //Sound
     public AudioSource source;
     public AudioClip vasoDeslizando;
     public AudioClip satisfaccion;
-    //Variable encargada de la calidad de la orden
     public int calidadOrden = 0;
-    // public Coroutine _timer;
     public ITimer iTimer;
     public bool hasTime=true;    
     private void Awake()
@@ -92,224 +83,79 @@ public class GlassPrueba : MonoBehaviour
             liquidObj.GetComponent<MeshRenderer>().material = orderType.liquidMat;
         }
     }
-    /*
-private void OnTriggerEnter(Collider other)
-{
-    if (other.gameObject.TryGetComponent<Bottle1>(out Bottle1 bottleName))
-    {
-        if (other.gameObject.CompareTag("Interact"))
-        {
-            if (bottleName.bottleName == "Red")
-            {
-                thisGlass.Add(bottleName.bottleName);
-                other.GetComponent<Bottle1>().PlayBottleSound();
-                dif = glassType.drinkList.Except(thisGlass).ToList();
-                foreach (var item in dif)
-                {
-                    Debug.Log(item);
-                }
-                gameManager.RestarIngrediente();
-                Destroy(other.gameObject);
-                gameManager.blue = true;
-                gameManager.RespawnBottle();
-                //newGlassColor = new Color(0, 0, 1, 1);
-                //glassRenderer.material.SetColor("_Color", newGlassColor);
-
-            }
-        }
-    }
-    //string bottleName = other.GetComponent<Bottle1>().bottleName;
-    /*
-    if (other.gameObject.CompareTag("Interact"))
-    {
-        if (bottleName == "Blue")
-        {
-            thisGlass.Add(bottleName);
-            other.GetComponent<Bottle1>().PlayBottleSound();
-            dif = glassType.drinkList.Except(thisGlass).ToList();
-            foreach (var item in dif)
-            {
-              Debug.Log(item);
-            }
-            gameManager.RestarIngrediente();
-            Destroy(other.gameObject);
-            gameManager.blue = true;
-            gameManager.RespawnBottle();
-            //newGlassColor = new Color(0, 0, 1, 1);
-            //glassRenderer.material.SetColor("_Color", newGlassColor);
-
-        }
-        if (bottleName=="Red")
-        {
-            thisGlass.Add(bottleName);
-            dif = glassType.drinkList.Except(thisGlass).ToList();
-            foreach (var item in dif)
-            {
-                Debug.Log(item);
-            }
-            gameManager.RestarIngrediente();
-            Destroy(other.gameObject);
-            gameManager.red = true;
-            gameManager.RespawnBottle();
-            newGlassColor = new Color(1, 0, 0, 1);
-            glassRenderer.material.SetColor("_Color", newGlassColor);
-            //gameManager.Prueba();
-        }
-        if (bottleName == "Green") 
-        {
-            thisGlass.Add(bottleName);
-            dif = glassType.drinkList.Except(thisGlass).ToList();
-            foreach (var item in dif)
-            {
-                Debug.Log(item);
-            }
-            gameManager.RestarIngrediente();
-            Destroy(other.gameObject);
-            gameManager.green = true;
-            gameManager.RespawnBottle();
-            newGlassColor = new Color(120, 171, 57, 1);
-            glassRenderer.material.SetColor("_Color", newGlassColor);
-        }
-        if (bottleName == "Yellow")
-        {
-            thisGlass.Add(bottleName);
-            dif = glassType.drinkList.Except(thisGlass).ToList();
-            foreach (var item in dif)
-            {
-                Debug.Log(item);
-            }
-            gameManager.RestarIngrediente();
-            Destroy(other.gameObject);
-            gameManager.green = true;
-            gameManager.RespawnBottle();
-            newGlassColor = new Color(120, 171, 57, 1);
-            glassRenderer.material.SetColor("_Color", newGlassColor);
-        }
-        if (bottleName == "Yellow")
-        {
-            thisGlass.Add(bottleName);
-            dif = glassType.drinkList.Except(thisGlass).ToList();
-            foreach (var item in dif)
-            {
-                Debug.Log(item);
-            }
-            gameManager.RestarIngrediente();
-            Destroy(other.gameObject);
-            gameManager.green = true;
-            gameManager.RespawnBottle();
-            newGlassColor = new Color(120, 171, 57, 1);
-            glassRenderer.material.SetColor("_Color", newGlassColor);
-        }
-    }
-
-}
-*/
-
-
     private void OnCollisionEnter(Collision collision)
     {
-        //string botleName = other.name;
         string bottleName = collision.gameObject.GetComponent<Bottle1>().bottleName;
-
-        //if (other.gameObject.CompareTag("Bottle1"))
         if (collision.gameObject.CompareTag("Interact"))
         {
             collision.gameObject.GetComponent<Bottle1>().PlayBottleSound();
             if (bottleName == "Blue")
             {
                 Debug.Log("INGRESO");
-                //glassType.glassList.Add(botleName);
-                //thisGlass.Add(botleName); //Añade el nombre del vaso
                 thisGlass.Add(bottleName);
                 collision.gameObject.GetComponent<Bottle1>().PlayBottleSound();
-                //dif =glassType.drinkList.Except(glassType.glassList).ToList();
-                dif = glassType.drinkList.Except(thisGlass).ToList(); //corrobora las diferencias que existen ahora entre lo que deberia tener y lo que tiene
+                dif = glassType.drinkList.Except(thisGlass).ToList();
                 foreach (var item in dif)
                 {
                     Debug.Log(item);
                 }
-
-                //ingredientesFaltantes -= 1;
                 gameManager.RestarIngrediente();
-
-
-                Destroy(collision.gameObject); //Destruye el vaso
+                Destroy(collision.gameObject);
                 gameManager.blue = true;
                 gameManager.RespawnBottle();
-
-                //newGlassColor = new Color(0, 0, 1, 1);
-                //newLiquidColor = blue;
-                //liquidObj.GetComponent<MeshRenderer>().material = blue;
                 liquidObj.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<Bottle1>().bottleMat;
-                //gameManager.Prueba();
-
-                //Compare(); //Corrobora si terminamos el pedido
-                //spawnBottleManager.Respawn();
             }
             if (bottleName == "Red")
             {
-                //glassType.glassList.Add(botleName);
-                //dif = glassType.drinkList.Except(glassType.glassList).ToList();
-                //thisGlass.Add(botleName); //Añade el nombre del vaso
-                thisGlass.Add(bottleName);
-
-                dif = glassType.drinkList.Except(thisGlass).ToList(); //corrobora las diferencias que existen ahora entre lo que deberia tener y lo que tiene
-                foreach (var item in dif)
-                {
-                    Debug.Log(item);
-                }
-                //Destroy(other.gameObject);
-
-                gameManager.RestarIngrediente();
-                Destroy(collision.gameObject); //Destruye el vaso
-                gameManager.red = true;
-                gameManager.RespawnBottle();
-                liquidObj.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<Bottle1>().bottleMat;
-
-            }
-            if (bottleName == "Green")
-            {
-                //thisGlass.Add(botleName);
                 thisGlass.Add(bottleName);
                 dif = glassType.drinkList.Except(thisGlass).ToList();
                 foreach (var item in dif)
                 {
                     Debug.Log(item);
                 }
-
                 gameManager.RestarIngrediente();
-                Destroy(collision.gameObject); //Destruye el vaso
+                Destroy(collision.gameObject);
+                gameManager.red = true;
+                gameManager.RespawnBottle();
+                liquidObj.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<Bottle1>().bottleMat;
+            }
+            if (bottleName == "Green")
+            {
+                thisGlass.Add(bottleName);
+                dif = glassType.drinkList.Except(thisGlass).ToList();
+                foreach (var item in dif)
+                {
+                    Debug.Log(item);
+                }
+                gameManager.RestarIngrediente();
+                Destroy(collision.gameObject);
                 gameManager.green = true;
                 gameManager.RespawnBottle();
             }
             if (bottleName == "Yellow")
             {
-                //thisGlass.Add(botleName);
                 thisGlass.Add(bottleName);
                 dif = glassType.drinkList.Except(thisGlass).ToList();
                 foreach (var item in dif)
                 {
                     Debug.Log(item);
                 }
-
                 gameManager.RestarIngrediente();
-                Destroy(collision.gameObject); //Destruye el vaso
+                Destroy(collision.gameObject);
                 gameManager.yellow = true;
                 gameManager.RespawnBottle();
                 liquidObj.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<Bottle1>().bottleMat;
             }
             if (bottleName == "Black")
             {
-                //thisGlass.Add(botleName);
                 thisGlass.Add(bottleName);
                 dif = glassType.drinkList.Except(thisGlass).ToList();
                 foreach (var item in dif)
                 {
                     Debug.Log(item);
                 }
-
                 gameManager.RestarIngrediente();
-                Destroy(collision.gameObject); //Destruye el vaso
+                Destroy(collision.gameObject);
                 gameManager.black = true;
                 gameManager.RespawnBottle();
                 liquidObj.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<Bottle1>().bottleMat;
@@ -334,21 +180,5 @@ private void OnTriggerEnter(Collider other)
     public void ResetGlassValuesDescarte()
     {
         thisGlass.Clear();
-
     }
-
-    void ChangeGlassValues()
-    {
-        thisGlass.Clear();
-        glassType.drinkList.Clear();
-        orderRenderer.material = orderType.orderMat;
-        correctPreparation = false;
-
-
-        glassType.drinkList.AddRange(orderType.orderList); //Sumamos las listas de la orden y del objeto vaso
-        dif = glassType.drinkList.Except(thisGlass).ToList(); //Se registra lo que debe contener el vaso
-        ingredientesFaltantes = orderType.cantidadIngredientesOrden; // igualamos la cantidad de ingredientes que puede poseer con los que la orden nos indica 
-
-    }
-
 }

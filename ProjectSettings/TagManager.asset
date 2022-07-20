@@ -13,6 +13,7 @@ TagManager:
   - Hand
   - Change
   - GlassAnim
+  - Scene
   layers:
   - Default
   - TransparentFX

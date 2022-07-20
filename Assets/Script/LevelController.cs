@@ -7,26 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     [SerializeField] bool Menu;
-    //[SerializeField] GameObject playerStats;
-
-   
-    
-    void LoadNivel1()
-    {
-        SceneManager.LoadScene("Nivel1");
-    }
-
-    void LoadNivel2()
-    {
-        SceneManager.LoadScene("Nivel2");
-        //DontDestroyOnLoad(playerStats);
-    }
-
-    public void LoadFinalScene()
-    {
-        SceneManager.LoadScene("FinalScene");
-        //DontDestroyOnLoad(playerStats);
-    }
+    [SerializeField] bool Retry;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,7 +15,11 @@ public class LevelController : MonoBehaviour
         {
             if (Menu == true)
             {
-                LoadNivel1();
+                SceneManager.LoadScene(1);
+            }
+            if (Retry == true)
+            {
+                SceneManager.LoadScene(0);
             }
         }
     }

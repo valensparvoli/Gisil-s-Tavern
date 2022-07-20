@@ -26,14 +26,12 @@ public class DescarteBTN : MonoBehaviour
         }
         
     }
-
     private void OnMouseDown()
     {
         descarte = true;
         gameManager.glass = glass.GetComponent<GlassPrueba>();
         glass.descarteAnimation();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Hand"))

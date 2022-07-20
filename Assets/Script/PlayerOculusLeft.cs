@@ -13,8 +13,7 @@ public class PlayerOculusLeft : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)
-            || GetDown(IButton.SecondaryHandTrigger, Controller.LTouch))
+        if (GetDown(IButton.PrimaryHandTrigger, Controller.LTouch))
         {
             if (holdingObject != null)
             {
