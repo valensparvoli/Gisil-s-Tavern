@@ -1,0 +1,11 @@
+Usando teclado:
+
+1. Iniciar todos los timers.
+2. Pausar todos los timers.
+3. Resetear todos los timers (sin pausar).
+4. Detener todos los timers (pausando).
+5. Alternar todos lso timers.
+
+A. Alternar el primer timer.
+B. Alternar el segundo timer.
+C. Alternar el tercer timer.

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91979f13e40e4cc40adb59164f0aebf8, type: 3}
+  m_Name: Viking1
+  m_EditorClassIdentifier: 
+  vikingWaiting: {fileID: 21300000, guid: dd4b41b95b7216b4cb340f1b0fc7db9e, type: 3}
+  vikingHappy: {fileID: 21300000, guid: faf02dfabd2125f49ad2fa7ad6032603, type: 3}
+  vikingBack: {fileID: 21300000, guid: e330d677de191424ea21a177995beca1, type: 3}
